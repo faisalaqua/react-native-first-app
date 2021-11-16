@@ -4,14 +4,11 @@ import { observer } from "mobx-react";
 import shopStore from "../../stores/shopStore";
 import ShopItem from "../ShopItem";
 
-const ShopList = () => {
-  const shopList = shopStore.shops.map((shop) => <ShopItem shop={shop} />);
-  return (
-    <View>
-      <Text> HELLO! </Text>
-      {shopList}
-    </View>
-  );
+const ShopList = ({ navigation }) => {
+  const shopList = shopStore.shops.map((shop) => (
+    <ShopItem navigation={navigation} shop={shop} key={shop._id} />
+  ));
+  return <View>{shopList}</View>;
 };
 
 export default observer(ShopList);

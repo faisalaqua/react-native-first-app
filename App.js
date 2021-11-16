@@ -1,19 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Home from "./components/Home";
 import { NativeBaseProvider } from "native-base";
-import ShopList from "./components/ShopList";
-import ShopDetail from "./components/ShopDetail";
+import { NavigationContainer } from "@react-navigation/native";
+import RootNavigator from "./components/Navigation";
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <View style={styles.container}>
-        {/* <ShopList /> */}
-        <ShopDetail />
-      </View>
-    </NativeBaseProvider>
+    <NavigationContainer>
+      <NativeBaseProvider>
+        <RootNavigator />
+      </NativeBaseProvider>
+    </NavigationContainer>
   );
 }
 

@@ -6,12 +6,7 @@ const ProductList = ({ products }) => {
   const productList = products.map((product) => (
     <ProductItem product={product} />
   ));
-  return (
-    <View>
-      {productList}
-      <Text>ProductList</Text>
-    </View>
-  );
+  return <View>{productList}</View>;
 };
 
 export default ProductList;
