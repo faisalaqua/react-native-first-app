@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
         leftIcon={<Icon as={MaterialCommunityIcons} name="menu" size="sm" />}
         title="Click Here"
       >
-        Home Page
+        Home
       </Button>
     </View>
   );

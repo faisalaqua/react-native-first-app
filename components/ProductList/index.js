@@ -1,3 +1,4 @@
+import { observer } from "mobx-react";
 import React from "react";
 import { View, Text } from "react-native";
 import ProductItem from "../ProductItem";
