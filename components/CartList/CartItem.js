@@ -1,4 +1,4 @@
-import { Avatar, Box, HStack, NumberInput, VStack } from "native-base";
+import { Avatar, Box, Button, HStack, NumberInput, VStack } from "native-base";
 import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { Image } from "react-native-svg";
@@ -40,6 +40,9 @@ const CartItem = ({ item }) => {
             onChange={(value) => handleAdd(value)}
           />
         </VStack>
+        <Button onPress={() => cartStore.removeItemFromCart(item.product._id)}>
+          <Text>Delete</Text>
+        </Button>
       </HStack>
     </Box>
   );

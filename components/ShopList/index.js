@@ -8,7 +8,12 @@ const ShopList = ({ navigation }) => {
   const shopList = shopStore.shops.map((shop) => (
     <ShopItem navigation={navigation} shop={shop} key={shop._id} />
   ));
-  return <View>{shopList}</View>;
+  return (
+    <View>
+      {shopList}
+      <Text>Hello</Text>
+    </View>
+  );
 };
 
 export default observer(ShopList);

@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { makeAutoObservable } from "mobx";
+import { instance } from "./instance";
 
 class CartStore {
   items = [
@@ -28,7 +30,12 @@ class CartStore {
     makeAutoObservable(this);
   }
 
-  addItemToCart = (product, quantity) => {
+  removeItemFromCart = async (productId) => {
+    this.items = this.items.filter((item) => item.product._id !== productId);
+    await AsyncStorage.setItem("myCart", JSON.stringify(this.items));
+  };
+
+  addItemToCart = async (product, quantity) => {
     const foundItem = this.items.find(
       (item) => item.product._id === product._id
     );
@@ -41,6 +48,7 @@ class CartStore {
       };
       this.items.push(newItem);
     }
+    await AsyncStorage.setItem("myCart", JSON.stringify(this.items));
   };
 
   get totalQuantity() {
@@ -48,6 +56,34 @@ class CartStore {
     this.items.forEach((item) => (total = total + item.quantity));
     return total;
   }
+
+  checkout = async () => {
+    try {
+      const cart = this.items.map((item) => ({
+        ...item,
+        quantity: item.quantity,
+      }));
+      const res = await instance.post("checkout", { items: cart });
+      this.items = [];
+      await AsyncStorage.removeItem("myCart");
+      alert("Items are checked out");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchCart = async () => {
+    try {
+      const cart = await AsyncStorage.getItem("myCart");
+      if (cart) {
+        this.items = JSON.parse(cart);
+      } else {
+        this.items = [];
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 const cartStore = new CartStore();
